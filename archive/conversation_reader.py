@@ -26,6 +26,10 @@ class ConversationReader:
                 ret.append(jsons.loads(file_content, Conversation))
         return ret
 
+
+    def __listdir_absolute_paths(self, dir: str):
+        return [os.path.join(dir, d) for d in os.listdir(dir)]
+
     # noinspection PyMethodMayBeStatic
     def __join_messages(self, conversations: List[Conversation]) -> List[Message]:
         messages: List[Message] = []
@@ -36,28 +40,28 @@ class ConversationReader:
     def __get_videos(self) -> List[str]:
         video_path = self.path_provider.get_videos(conversation_dir_abs=self.conversation_dir)
         if os.path.exists(video_path):
-            return os.listdir(video_path)
+            return self.__listdir_absolute_paths(video_path)
         else:
             return []
 
     def __get_photos(self) -> List[str]:
         photo_path = self.path_provider.get_photos(self.conversation_dir)
         if os.path.exists(photo_path):
-            return os.listdir(photo_path)
+            return self.__listdir_absolute_paths(photo_path)
         else:
             return []
 
     def __get_gifs(self) -> List[str]:
         gif_path = self.path_provider.get_gifs(self.conversation_dir)
         if os.path.exists(gif_path):
-            return os.listdir(gif_path)
+            return self.__listdir_absolute_paths(gif_path)
         else:
             return []
 
     def __get_audio(self) -> List[str]:
         audio_path = self.path_provider.get_audio(self.conversation_dir)
         if os.path.exists(audio_path):
-            return os.listdir(audio_path)
+            return self.__listdir_absolute_paths(audio_path)
         else:
             return []
 

@@ -14,7 +14,7 @@ class ArchiveReader:
 
     # noinspection PyMethodMayBeStatic
     def __read_conversations_from_directory(self, directory) -> List[BigConversation]:
-        return [ConversationReader(conversation_dir=join(directory, c_dir)).read_conversation() for c_dir in os.listdir(directory)]
+        return [ConversationReader(conversation_dir=join(directory, c_dir), path_provider=self.path_provider).read_conversation() for c_dir in os.listdir(directory)]
 
     def read_archive(self) -> Archive:
         archive = Archive()

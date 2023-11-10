@@ -77,7 +77,7 @@ class BigConversation:
 
 
 class Archive:
-    archived_threads: List[Conversation]
-    inbox: List[Conversation]
-    filtered_threads: List[Conversation]
-    message_requests: List[Conversation]
+    archived_threads: List[BigConversation]
+    inbox: List[BigConversation]
+    filtered_threads: List[BigConversation]
+    message_requests: List[BigConversation]
