@@ -3,10 +3,13 @@ import os
 from typing import List
 import jsons
 
+from archive.paths import PathProvider
+
 
 class ConversationReader:
-    def __init__(self, conversation_dir):
+    def __init__(self, conversation_dir: str, path_provider: PathProvider):
         self.conversation_dir = conversation_dir
+        self.path_provider = path_provider
 
     def __get_all_conversation_files(self):
         return [os.path.join(self.conversation_dir, file) for file in os.listdir(self.conversation_dir) if
@@ -30,6 +33,34 @@ class ConversationReader:
             messages.extend(c.messages)
         return messages
 
+    def __get_videos(self) -> List[str]:
+        video_path = self.path_provider.get_videos(conversation_dir_abs=self.conversation_dir)
+        if os.path.exists(video_path):
+            return os.listdir(video_path)
+        else:
+            return []
+
+    def __get_photos(self) -> List[str]:
+        photo_path = self.path_provider.get_photos(self.conversation_dir)
+        if os.path.exists(photo_path):
+            return os.listdir(photo_path)
+        else:
+            return []
+
+    def __get_gifs(self) -> List[str]:
+        gif_path = self.path_provider.get_gifs(self.conversation_dir)
+        if os.path.exists(gif_path):
+            return os.listdir(gif_path)
+        else:
+            return []
+
+    def __get_audio(self) -> List[str]:
+        audio_path = self.path_provider.get_audio(self.conversation_dir)
+        if os.path.exists(audio_path):
+            return os.listdir(audio_path)
+        else:
+            return []
+
     def __create_big_conversation(self, conversations: List[Conversation]) -> BigConversation | None:
         if len(conversations) > 0:
             c = conversations[0]
@@ -37,7 +68,11 @@ class ConversationReader:
                                    is_still_participant=c.is_still_participant,
                                    thread_type=c.thread_type,
                                    thread_path=c.thread_path,
-                                   messages=self.__join_messages(conversations))
+                                   messages=self.__join_messages(conversations),
+                                   audio=self.__get_audio(),
+                                   videos=self.__get_videos(),
+                                   photos=self.__get_photos(),
+                                   gifs=self.__get_gifs())
         else:
             return None
 

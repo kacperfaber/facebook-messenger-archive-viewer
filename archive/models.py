@@ -54,18 +54,26 @@ class Conversation:
 
 
 class BigConversation:
-    def __init__(self, title, is_still_participant, thread_type, thread_path, messages):
+    def __init__(self, title, is_still_participant, thread_type, thread_path, messages, photos: List[str], videos: List[str], gifs: List[str], audio: List[str]):
         self.title = title
         self.thread_path = thread_path
         self.thread_type = thread_type
         self.is_still_participant = is_still_participant
         self.messages = messages
+        self.videos = videos
+        self.photos = photos
+        self.gifs = gifs
+        self.audio = audio
 
     title: str
     is_still_participant: bool
     thread_type: str  # RegularGroup / Regular
     thread_path: str
     messages: List[Message]
+    videos: List[str]  # Absolute paths to all videos under conversation
+    photos: List[str]  # Absolute paths to all photos under conversation
+    gifs: List[str]  # Absolute paths to all gifs under conversation
+    audio: List[str]  # Absolute paths to all audio under conversation
 
 
 class Archive:
