@@ -28,6 +28,21 @@ class PathProviderLinuxTests(unittest.TestCase):
         prov = PathProvider(base_path)
         self.assertEqual(f"{base_path}/messages/filtered_threads", prov.get_filtered_threads())
 
+    def test_get_audio_returns_expected(self):
+        conversation_dir = "/home/k/facebook/messages/inbox/lipiecgril/"
+        res = PathProvider("/home/k/facebook").get_audio(conversation_dir)
+        self.assertEqual("/home/k/facebook/messages/inbox/lipiecgril/audio", res)
+
+    def test_get_photos_returns_expected(self):
+        conversation_dir = "/home/k/facebook/messages/inbox/lipiecgril/"
+        res = PathProvider("/home/k/facebook").get_photos(conversation_dir)
+        self.assertEqual("/home/k/facebook/messages/inbox/lipiecgril/photos", res)
+
+    def test_get_videos_returns_expected(self):
+        conversation_dir = "/home/k/facebook/messages/inbox/lipiecgril/"
+        res = PathProvider("/home/k/facebook").get_videos(conversation_dir)
+        self.assertEqual("/home/k/facebook/messages/inbox/lipiecgril/videos", res)
+
 
 @unittest.skipUnless(platform.system() == 'Windows', reason="Only for Windows")
 class PathProviderWindowsTests(unittest.TestCase):
