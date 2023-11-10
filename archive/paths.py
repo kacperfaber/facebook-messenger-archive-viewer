@@ -1,4 +1,4 @@
-import os.path
+from os.path import join
 
 
 class PathProvider:
@@ -9,16 +9,28 @@ class PathProvider:
         """
         :return: /messages folder
         """
-        return os.path.join(self.working_dir, "messages")
+        return join(self.working_dir, "messages")
 
     def get_archived_threads(self):
         """
         :return: archived threads folder
         """
-        return os.path.join(self.working_dir, "messages", "archived_threads")
+        return join(self.working_dir, "messages", "archived_threads")
 
     def get_inbox(self):
         """
         :return: inbox folder
         """
-        return os.path.join(self.working_dir, "messages", "inbox")
+        return join(self.working_dir, "messages", "inbox")
+
+    def get_message_requests(self):
+        """
+        :return: message_requests directory
+        """
+        return join(self.working_dir, "messages", "message_requests")
+
+    def get_filtered_threads(self):
+        """
+        :return: filtered_threads directory
+        """
+        return join(self.working_dir, "messages", "filtered_threads")
