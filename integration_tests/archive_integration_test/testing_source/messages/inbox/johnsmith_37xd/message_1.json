@@ -1,0 +1,28 @@
+{
+  "title": "Our company",
+  "is_still_participant": true,
+  "thread_type": "Regular",
+  "thread_path": "archived_threads/johnsmith_37xd",
+  "participants": [
+    {
+      "name": "Kacper Faber"
+    },
+    {
+      "name": "John Smith"
+    }
+  ],
+  "messages": [
+    {
+      "sender_name": "Kacper Faber",
+      "timestamp_ms": 1672570800,
+      "content": "Hello John",
+      "type": "Generic"
+    },
+    {
+      "sender_name": "John Smith",
+      "timestamp_ms": 1672570860,
+      "content": "Hello Kacper",
+      "type": "Generic"
+    }
+  ]
+}

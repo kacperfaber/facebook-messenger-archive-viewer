@@ -1,0 +1,11 @@
+FROM python:latest
+
+WORKDIR /app
+
+COPY . .
+
+COPY integration_tests/archive_integration_test/testing_source facebook_archive
+
+RUN ["python", "-m", "pip", "install", "-r", "requirements.txt"]
+
+CMD ["echo", "OK"]
