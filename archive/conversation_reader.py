@@ -65,6 +65,9 @@ class ConversationReader:
         else:
             return []
 
+    def __get_conversation_relative_path(self) -> str:
+        return os.path.relpath(self.conversation_dir, self.path_provider.working_dir)
+
     def __create_big_conversation(self, conversations: List[Conversation]) -> BigConversation | None:
         if len(conversations) > 0:
             c = conversations[0]
@@ -76,7 +79,8 @@ class ConversationReader:
                                    audio=self.__get_audio(),
                                    videos=self.__get_videos(),
                                    photos=self.__get_photos(),
-                                   gifs=self.__get_gifs())
+                                   gifs=self.__get_gifs(),
+                                   rel_path=self.__get_conversation_relative_path())
         else:
             return None
 

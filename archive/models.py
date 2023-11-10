@@ -21,6 +21,10 @@ class Video:
     thumbnail: Thumbnail
 
 
+class Audio:
+    uri: str
+
+
 class Message:
     sender_name: str
     timestamp_ms: int
@@ -30,6 +34,8 @@ class Message:
     is_unsent: bool
     reactions: List[Reaction]
     photos: List[Photo]
+    videos: List[Video]
+    audio_files: List[Audio]
 
 
 class Participant:
@@ -54,7 +60,7 @@ class Conversation:
 
 
 class BigConversation:
-    def __init__(self, title, is_still_participant, thread_type, thread_path, messages, photos: List[str], videos: List[str], gifs: List[str], audio: List[str]):
+    def __init__(self, title, is_still_participant, thread_type, thread_path, messages, photos: List[str], videos: List[str], gifs: List[str], audio: List[str], rel_path):
         self.title = title
         self.thread_path = thread_path
         self.thread_type = thread_type
@@ -64,6 +70,7 @@ class BigConversation:
         self.photos = photos
         self.gifs = gifs
         self.audio = audio
+        self.rel_path = rel_path
 
     title: str
     is_still_participant: bool

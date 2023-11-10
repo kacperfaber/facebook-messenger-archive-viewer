@@ -39,6 +39,10 @@ class ArchiveReaderIntegrationTest(unittest.TestCase):
         res = ArchiveReader(DEFAULT_ARCHIVE_DIRECTORY).read_archive()
         self.assertEqual(1, len(res.archived_threads[0].audio))
 
+    def test_read_archive_returns_expected_rel_path(self):
+        res = ArchiveReader(DEFAULT_ARCHIVE_DIRECTORY).read_archive()
+        self.assertEqual("messages/inbox/johnsmith_37xd", res.inbox[0].rel_path)
+
 
 if __name__ == '__main__':
     unittest.main()
