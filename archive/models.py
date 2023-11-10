@@ -37,6 +37,14 @@ class Participant:
 
 
 class Conversation:
+    def __init__(self, messages: List[Message], participants: List[Participant], title: str, is_still_participant: bool, thread_type: str, thread_path: str):
+        self.messages = messages
+        self.participants = participants
+        self.title = title
+        self.thread_path = thread_path
+        self.thread_type = thread_type
+        self.is_still_participant = is_still_participant
+
     messages: List[Message]
     participants: List[Participant]
     title: str

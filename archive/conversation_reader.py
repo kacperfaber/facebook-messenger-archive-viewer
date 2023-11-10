@@ -1,8 +1,7 @@
-import json
-
 from archive.models import Conversation, BigConversation, Message
 import os
 from typing import List
+import jsons
 
 
 class ConversationReader:
@@ -17,15 +16,18 @@ class ConversationReader:
 
     # noinspection PyMethodMayBeStatic
     def __create_conversations_of_files(self, json_files) -> List[Conversation]:
+        ret: List[Conversation] = []
         for json_file in json_files:
             with open(json_file) as file:
                 file_content = file.read()
-                yield json.loads(file_content)
+                ret.append(jsons.loads(file_content, Conversation))
+        return ret
 
     # noinspection PyMethodMayBeStatic
     def __join_messages(self, conversations: List[Conversation]) -> List[Message]:
         messages: List[Message] = []
-        messages.extend(*[c.messages for c in conversations])
+        for c in conversations:
+            messages.extend(c.messages)
         return messages
 
     def __create_big_conversation(self, conversations: List[Conversation]) -> BigConversation | None:
