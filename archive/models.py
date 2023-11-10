@@ -1,3 +1,6 @@
+from typing import List
+
+
 class Reaction:
     reaction: str
     actor: str  # User name
@@ -25,8 +28,8 @@ class Message:
     type: str  # 'Generic' / 'Call'
     call_duration: int
     is_unsent: bool
-    reactions: [Reaction]
-    photos: [Photo]
+    reactions: List[Reaction]
+    photos: List[Photo]
 
 
 class Participant:
@@ -34,9 +37,31 @@ class Participant:
 
 
 class Conversation:
-    messages: [Message]
-    participants: [Participant]
+    messages: List[Message]
+    participants: List[Participant]
     title: str
     is_still_participant: bool
     thread_type: str  # RegularGroup / Regular
     thread_path: str
+
+
+class BigConversation:
+    def __init__(self, title, is_still_participant, thread_type, thread_path, messages):
+        self.title = title
+        self.thread_path = thread_path
+        self.thread_type = thread_type
+        self.is_still_participant = is_still_participant
+        self.messages = messages
+
+    title: str
+    is_still_participant: bool
+    thread_type: str  # RegularGroup / Regular
+    thread_path: str
+    messages: List[Message]
+
+
+class Archive:
+    archived_threads: List[Conversation]
+    inbox: List[Conversation]
+    filtered_threads: List[Conversation]
+    message_requests: List[Conversation]
