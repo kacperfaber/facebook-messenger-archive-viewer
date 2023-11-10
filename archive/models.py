@@ -36,3 +36,7 @@ class Participant:
 class Conversation:
     messages: [Message]
     participants: [Participant]
+    title: str
+    is_still_participant: bool
+    thread_type: str  # RegularGroup / Regular
+    thread_path: str
