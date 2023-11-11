@@ -28,13 +28,16 @@ class ThreadDto(DeclarativeDb):
     title = Column(String, nullable=False)
     thread_type = Column(Enum(ThreadType), nullable=False)
     thread_path = Column(String, nullable=False)
+    rel_path = Column(String, nullable=False)
     location = Column(Enum(ThreadLocation), nullable=False)
     messages = relationship("MessageDto")
 
-    def __init__(self, title: str, thread_type: ThreadType, thread_path: str):
+    def __init__(self, title: str, thread_type: ThreadType, thread_path: str, thread_location: ThreadLocation, rel_path: str):
         self.title = title
         self.thread_type = thread_type
         self.thread_path = thread_path
+        self.location = thread_location
+        self.rel_path = rel_path
 
 
 class MessageType(PythonEnum):
@@ -94,7 +97,12 @@ class MessageAttachmentDto(DeclarativeDb):
     message_id = Column(Integer, ForeignKey("messages.id"))
     message = relationship("MessageDto", back_populates="attachments")
     uri = Column(String, nullable=False)
+    thumbnail_uri = Column(String, nullable=True)
+    created_at = Column(DateTime, nullable=True)
     type = Column(Enum(MessageAttachmentType), nullable=False)
 
-    def __init__(self, uri: str):
+    def __init__(self, uri: str, type1: MessageAttachmentType, thumbnail_uri: str | None = None, created_at: datetime.datetime | None = None):
         self.uri = uri
+        self.thumbnail_uri = thumbnail_uri
+        self.created_at = created_at
+        self.type = type1
