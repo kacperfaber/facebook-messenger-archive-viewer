@@ -1,7 +1,6 @@
-from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
 
-from image.dtos import DeclarativeDb, AttachmentDto, AttachmentType
+from image.dtos import DeclarativeDb, AttachmentDto, AttachmentType, ThreadDto
 
 
 class Db:
@@ -35,3 +34,6 @@ class Db:
     def save_audio_attachment(self, rel_path: str, data: str) -> AttachmentDto:
         return self.__save_attachment(AttachmentType.AUDIO, rel_path, data)
 
+    def save_thread(self, thread: ThreadDto):
+        self.session.add(thread)
+        self.session.commit()
