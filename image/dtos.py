@@ -11,6 +11,7 @@ DeclarativeDb = declarative_base()
 class ThreadType(PythonEnum):
     GROUP = 'group'
     CONVERSATION = 'conversation'
+    PENDING = 'pending'  # Generally in message_requests
 
 
 class ThreadLocation(PythonEnum):
@@ -41,8 +42,11 @@ class ThreadDto(DeclarativeDb):
 
 
 class MessageType(PythonEnum):
+    SHARE = "share"  # "username sent a live location"
     CALL = 'call'
     GENERIC = 'generic'
+    SUBCRIBE = 'subscribe'  # "username1 added username2 to the group."
+    UNSUBCRIBE = 'unsubscribe'  # "You left the group." / "username1 left the group"
 
 
 # noinspection SpellCheckingInspection
@@ -56,7 +60,7 @@ class MessageDto(DeclarativeDb):
 
     sender_name = Column(String, nullable=False)
     sent_at = Column(DateTime, nullable=False)
-    content = Column(String, nullable=False)
+    content = Column(String, nullable=True)
     type = Column(Enum(MessageType), nullable=False)
     call_duration = Column(Integer, nullable=True)
     attachments = relationship("MessageAttachmentDto", back_populates="message")

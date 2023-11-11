@@ -24,6 +24,15 @@ class Converters:
         elif type1 == 'Call':
             return MessageType.CALL
 
+        elif type1 == "Share":
+            return MessageType.SHARE
+
+        elif type1 == "Subscribe":
+            return MessageType.SUBCRIBE
+
+        elif type1 == "Unsubscribe":
+            return MessageType.UNSUBCRIBE
+
         raise Exception(f"Unknown message type '{type1}'")
 
     @staticmethod
@@ -51,7 +60,7 @@ class Converters:
     @staticmethod
     def message_to_message_dto(message: Message) -> MessageDto:
         m = MessageDto()
-        m.content = message.content
+        m.content = getattr(message, "content", None)
         m.sender_name = message.sender_name
         m.sent_at = Converters.timestamp_ms_to_datetime(message.timestamp_ms)
         m.type = Converters.message_type_to_MessageType(message.type)
@@ -69,6 +78,8 @@ class Converters:
             return ThreadType.GROUP
         elif thread_type == 'Regular':
             return ThreadType.CONVERSATION
+        elif thread_type == "Pending":
+            return ThreadType.PENDING
         raise Exception(f"Unknown thread_type '{thread_type}'")
 
     @staticmethod
