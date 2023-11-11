@@ -77,10 +77,10 @@ class BigConversation:
     thread_type: str  # RegularGroup / Regular
     thread_path: str
     messages: List[Message]
-    videos: List[str]  # Absolute paths to all videos under conversation
-    photos: List[str]  # Absolute paths to all photos under conversation
-    gifs: List[str]  # Absolute paths to all gifs under conversation
-    audio: List[str]  # Absolute paths to all audio under conversation
+    videos: List[str]  # Relative to working dir paths to all videos under conversation
+    photos: List[str]  # Relative to working dir paths to all photos under conversation
+    gifs: List[str]  # Relative to working dir paths to all gifs under conversation
+    audio: List[str]  # Relative to working dir paths to all audio under conversation
 
 
 class Archive:
