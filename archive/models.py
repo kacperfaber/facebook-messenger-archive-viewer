@@ -10,9 +10,16 @@ class Photo:
     uri: str  # For example: messages/inbox/our-class/photos/xd.jpg
     creation_timestamp: int
 
+    def __init__(self, uri, creation_timestamp):
+        self.uri = uri
+        self.creation_timestamp = creation_timestamp
+
 
 class Thumbnail:
     uri: str
+
+    def __init__(self, uri):
+        self.uri = uri
 
 
 class Video:
@@ -20,9 +27,17 @@ class Video:
     creation_timestamp: int
     thumbnail: Thumbnail
 
+    def __init__(self, uri: str, creation_timestamp: int, thumbnail: Thumbnail):
+        self.uri = uri
+        self.creation_timestamp = creation_timestamp
+        self.thumbnail = thumbnail
+
 
 class Audio:
     uri: str
+
+    def __init__(self, uri: str):
+        self.uri = uri
 
 
 class Message:
