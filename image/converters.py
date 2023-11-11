@@ -1,7 +1,8 @@
 import datetime
 
-from archive.models import Message, Photo, Video, Audio
-from image.dtos import MessageDto, MessageType, MessageAttachmentDto, MessageAttachmentType
+from archive.models import Message, Photo, Video, Audio, BigConversation
+from image.dtos import MessageDto, MessageType, MessageAttachmentDto, MessageAttachmentType, ThreadDto, ThreadType, \
+    ThreadLocation
 
 
 class Converters:
@@ -44,7 +45,7 @@ class Converters:
 
     @staticmethod
     def __apply_attachments(message: Message, message_dto: MessageDto):
-        x = [Converters.convert_attachment(a) for a in [*message.photos, *message.videos, *message.audio_files]]
+        x = [Converters.convert_attachment(a) for a in [*getattr(message, "photos", []), *getattr(message, "videos", []), *getattr(message, "audio_files", [])]]
         message_dto.attachments = x
 
     @staticmethod
@@ -61,3 +62,17 @@ class Converters:
         Converters.__apply_attachments(message, m)
 
         return m
+
+    @staticmethod
+    def convert_thread_type(thread_type: str) -> ThreadType:
+        if thread_type == 'RegularGroup':
+            return ThreadType.GROUP
+        elif thread_type == 'Regular':
+            return ThreadType.CONVERSATION
+        raise Exception(f"Unknown thread_type '{thread_type}'")
+
+    @staticmethod
+    def big_conversation_to_thread(c: BigConversation, thread_location: ThreadLocation) -> ThreadDto:
+        thread_type = Converters.convert_thread_type(c.thread_type)
+        return ThreadDto(title=c.title, thread_type=thread_type, thread_path=c.thread_path,
+                         thread_location=thread_location, rel_path=c.rel_path)

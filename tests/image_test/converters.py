@@ -3,7 +3,7 @@ import unittest
 
 from archive.models import Photo, Audio, Video, Thumbnail
 from image.converters import Converters
-from image.dtos import MessageAttachmentType, MessageType
+from image.dtos import MessageAttachmentType, MessageType, ThreadType
 
 
 class ConvertersTest(unittest.TestCase):
@@ -73,3 +73,12 @@ class ConvertersTest(unittest.TestCase):
     def test_timestamp_to_datetime_returns_expected(self):
         r = Converters.timestamp_to_datetime(1672574400)
         self.assertEqual(datetime.datetime(2023, 1, 1, 13, 0, 0), r)
+
+    def test_convert_thread_type_returns_ThreadType_GROUP_if_thread_type_is_RegularGroup(self):
+        self.assertEqual(ThreadType.GROUP, Converters.convert_thread_type("RegularGroup"))
+
+    def test_convert_thread_type_returns_ThreadType_CONVERSATION_if_thread_type_is_Regular(self):
+        self.assertEqual(ThreadType.CONVERSATION, Converters.convert_thread_type("Regular"))
+
+    def test_convert_thread_type_raises_if_thread_type_given_is_not_Regular_or_RegularGroup(self):
+        self.assertRaises(Exception, Converters.convert_thread_type, "ThisThreadTypeDoesNotExist")
