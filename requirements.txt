@@ -1,2 +1,5 @@
+greenlet==3.0.1
 jsons==1.6.3
+SQLAlchemy==2.0.23
+typing_extensions==4.8.0
 typish==1.9.3
