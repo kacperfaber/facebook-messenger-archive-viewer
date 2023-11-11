@@ -27,7 +27,8 @@ class ConversationReader:
         return ret
 
     def __listdir_relative_to_working_dir_paths(self, dir1: str):
-        return [os.path.relpath(os.path.join(dir1, d), self.path_provider.working_dir) for d in os.listdir(dir1)]
+        x = [os.path.relpath(os.path.join(dir1, d), self.path_provider.working_dir) for d in os.listdir(dir1) if os.path.isfile(os.path.join(dir1, d))]
+        return x
 
     # noinspection PyMethodMayBeStatic
     def __listdir_absolute_paths(self, dir1: str):
