@@ -1,7 +1,7 @@
 import unittest
 import platform
 
-from archive.paths import PathProvider
+from archive.paths import PathProvider, join_rel_path
 
 
 @unittest.skipUnless(platform.system() == 'Linux', reason="Only for Linux")
@@ -67,6 +67,14 @@ class PathProviderWindowsTests(unittest.TestCase):
         base_path = "C:\\Users\\kacper\\fb-archive"
         prov = PathProvider(base_path)
         self.assertEqual(f"{base_path}/messages/filtered_threads", prov.get_filtered_threads())
+
+
+class PathsTest(unittest.TestCase):
+    def test_join_rel_path_returns_expected(self):
+        working_dir = "/home/kacperfaber"
+        rel_path = "messages/test"
+        r = join_rel_path(working_dir, rel_path)
+        self.assertEqual("/home/kacperfaber/messages/test", r)
 
 
 if __name__ == '__main__':

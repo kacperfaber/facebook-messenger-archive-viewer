@@ -63,3 +63,7 @@ class PathProvider:
         :return: Audio directory absolute path
         """
         return join(conversation_dir_abs, "audio")
+
+
+def join_rel_path(working_dir: str, rel_path: str):
+    return join(working_dir, rel_path)
