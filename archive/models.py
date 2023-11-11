@@ -88,9 +88,10 @@ class BigConversation:
         self.rel_path = rel_path
 
     title: str
+    rel_path: str  # Relative to working dir path to conversation directory
     is_still_participant: bool
     thread_type: str  # RegularGroup / Regular
-    thread_path: str
+    thread_path: str  # Relative to $working_dir/messages directory to conversation directory example: inbox/john_smith
     messages: List[Message]
     videos: List[str]  # Relative to working dir paths to all videos under conversation
     photos: List[str]  # Relative to working dir paths to all photos under conversation
