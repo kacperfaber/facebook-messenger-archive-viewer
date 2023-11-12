@@ -1,7 +1,24 @@
+import dataclasses
+from typing import Callable, List
+
 from sqlalchemy.orm import sessionmaker, Session, Query
 from sqlalchemy.engine import create_engine as alchemy_create_engine
 
 from image.dtos import DeclarativeDb, AttachmentDto, AttachmentType, ThreadDto
+
+
+@dataclasses.dataclass
+class Pagination:
+    items: List
+    per_page: int
+    page: int
+    total: int
+
+    def __init__(self, items, per_page, page, total):
+        self.items = items
+        self.per_page = per_page
+        self.page = page
+        self.total = total
 
 
 class Db:
@@ -45,6 +62,18 @@ class Db:
         :return: sqlalchemy.Query
         """
         return self.session.query(entity)
+
+    def q_paginated(self, entity, per_page: int = 10, page: int = 0):
+        return self.session.query(entity).limit(per_page).offset((page - 1) * per_page)
+
+    def pagination(self, entity, per_page: int = 10, page: int = 0, additional_steps: Callable[[Query], Query] = None):
+        q = self.session.query(entity)
+        q1 = q
+        if additional_steps is not None:
+            q1 = additional_steps(q)
+        total = q1.count()
+        q1 = q1.limit(per_page).offset(page * per_page)
+        return Pagination(items=q1.all(), per_page=per_page, page=page, total=total)
 
     @staticmethod
     def create_engine(image_name: str, password: str | None, echo: bool = False):
