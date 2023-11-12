@@ -1,4 +1,4 @@
-from sqlalchemy.orm import sessionmaker, Session
+from sqlalchemy.orm import sessionmaker, Session, Query
 
 from image.dtos import DeclarativeDb, AttachmentDto, AttachmentType, ThreadDto
 
@@ -37,3 +37,10 @@ class Db:
     def save_thread(self, thread: ThreadDto):
         self.session.add(thread)
         self.session.commit()
+
+    def q(self, entity) -> Query:
+        """
+        Execute query
+        :return: sqlalchemy.Query
+        """
+        return self.session.query(entity)
