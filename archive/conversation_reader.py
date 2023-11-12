@@ -89,6 +89,9 @@ class ConversationReader:
             return None
 
     def read_conversation(self) -> BigConversation | None:
+        if not os.path.exists(self.conversation_dir):
+            return None
+
         message_files = self.__get_all_conversation_files()
         conversations: List[Conversation] = self.__create_conversations_of_files(message_files)
         return self.__create_big_conversation(conversations)
