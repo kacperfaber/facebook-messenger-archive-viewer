@@ -64,8 +64,5 @@ class ImageBuilder:
 
 
 def create_image_builder(image_name: str, password: str | None = None, echo: bool = False) -> ImageBuilder:
-    if password is not None:
-        e = create_engine(f"sqlite+pysqlcipher://:{password}@/{image_name}.db", echo=echo)
-        return ImageBuilder(engine=e)
-
-    return ImageBuilder(engine=create_engine(f"sqlite:///{image_name}.sqlite"))
+    engine = Db.create_engine(image_name=image_name, password=password, echo=echo)
+    return ImageBuilder(engine=engine)

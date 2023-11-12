@@ -1,4 +1,5 @@
 from sqlalchemy.orm import sessionmaker, Session, Query
+from sqlalchemy.engine import create_engine as alchemy_create_engine
 
 from image.dtos import DeclarativeDb, AttachmentDto, AttachmentType, ThreadDto
 
@@ -44,3 +45,9 @@ class Db:
         :return: sqlalchemy.Query
         """
         return self.session.query(entity)
+
+    @staticmethod
+    def create_engine(image_name: str, password: str | None, echo: bool = False):
+        if password is not None:
+            return alchemy_create_engine(f"sqlite+pysqlcipher://:{password}@/{image_name}.db", echo=echo)
+        return alchemy_create_engine(f"sqlite:///{image_name}.sqlite", echo=echo)
