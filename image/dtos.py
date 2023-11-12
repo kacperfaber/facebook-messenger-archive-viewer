@@ -89,7 +89,7 @@ class ThreadDto(DeclarativeDb):
     thread_path: str = Column(String, nullable=False)
     rel_path: str = Column(String, nullable=False)
     location: str = Column(Enum(ThreadLocation), nullable=False)
-    messages: List[MessageDto] = relationship("MessageDto")
+    messages = relationship("MessageDto")
 
     def __init__(self, title: str, thread_type: ThreadType, thread_path: str, thread_location: ThreadLocation, rel_path: str):
         self.title = title
@@ -105,7 +105,7 @@ class MessageAttachmentDto(DeclarativeDb):
     __tablename__ = "message_attachments"
     id: int = Column(Integer, primary_key=True, autoincrement=True)
     message_id: int = Column(Integer, ForeignKey("messages.id"))
-    message: MessageDto = relationship("MessageDto", back_populates="attachments")
+    message = relationship("MessageDto", back_populates="attachments")
     uri: str = Column(String, nullable=False)
     thumbnail_uri: str = Column(String, nullable=True)
     created_at: datetime.datetime = Column(DateTime, nullable=True)
