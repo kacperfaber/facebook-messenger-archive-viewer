@@ -1,7 +1,5 @@
 from typing import List
-from urllib.parse import quote
-
-from sqlalchemy import Engine, create_engine, text
+from sqlalchemy import create_engine
 
 from archive.archive_reader import ArchiveReader
 from archive.models import BigConversation
@@ -65,6 +63,9 @@ class ImageBuilder:
             self.db.save_thread(self.__create_thread(conversation, thread_location))
 
 
-def create_image_builder(image_name: str, echo: bool = False) -> ImageBuilder:
-    e = create_engine(f"sqlite:///{image_name}.sqlite", echo=echo)
-    return ImageBuilder(engine=e)
+def create_image_builder(image_name: str, password: str | None = None, echo: bool = False) -> ImageBuilder:
+    if password is not None:
+        e = create_engine(f"sqlite+pysqlcipher://:{password}@/{image_name}.db", echo=echo)
+        return ImageBuilder(engine=e)
+
+    return ImageBuilder(engine=create_engine(f"sqlite:///{image_name}.sqlite"))
