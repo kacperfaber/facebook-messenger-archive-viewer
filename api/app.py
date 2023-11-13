@@ -1,12 +1,13 @@
 from flask import Flask
 
+from api.routes.conversation_controller import conversation_blueprint
 from api.storage import Storage
 from image.db import Db
 from routes.attachment_controller import attachment_blueprint
 
 
 class App:
-    blueprints = [attachment_blueprint]
+    blueprints = [attachment_blueprint, conversation_blueprint]
 
     def __init__(self):
         self.app = Flask(__name__)
