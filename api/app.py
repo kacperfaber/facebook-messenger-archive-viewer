@@ -1,9 +1,7 @@
 from flask import Flask
 
-from api.routes.conversation_controller import conversation_blueprint
-from api.storage import Storage
-from image.db import Db
-from routes.attachment_controller import attachment_blueprint
+from api.conversation_controller import conversation_blueprint
+from api.attachment_controller import attachment_blueprint
 
 
 class App:
@@ -18,17 +16,3 @@ class App:
     def run(self, host="localhost", port=8080):
         self.__register_blueprints()
         self.app.run(host=host, port=port)
-
-
-db = Db(Db.create_engine("/home/kacperfaber/Pulpit/karolka", password=None))
-Storage.set_db(db)
-
-if __name__ == '__main__':
-    app = App()
-    app.run()
-
-
-
-
-
-
