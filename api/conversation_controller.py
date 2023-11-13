@@ -3,7 +3,7 @@ import datetime
 from flask import Blueprint, request
 from sqlalchemy import func
 
-from api.routes.controller_utils import opt_json, get_page_args
+from api.controller_utils import opt_json, get_page_args
 from api.storage import Storage
 from image.dtos import ThreadDto, MessageDto
 

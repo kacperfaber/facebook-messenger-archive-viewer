@@ -1,8 +1,7 @@
-from flask import Blueprint, current_app, request
+from flask import Blueprint, request
 
-from api.routes.controller_utils import opt_json
+from api.controller_utils import opt_json
 from api.storage import Storage
-from image.db import Db
 from image.dtos import AttachmentDto
 
 attachment_blueprint = Blueprint(name="attachment", import_name="attachment", url_prefix="/attachment")
