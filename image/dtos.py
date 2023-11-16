@@ -75,6 +75,17 @@ class MessageDto(DeclarativeDb):
     call_duration: int = Column(Integer, nullable=True)
     attachments: Mapped[List[MessageAttachmentDto]] = relationship("MessageAttachmentDto", back_populates="message")
 
+    def asdict(self):
+        return {
+            "id": self.id,
+            "threadId": self.thread_id,
+            "senderName": self.sender_name,
+            "sentAt": self.sent_at,
+            "content": self.content,
+            "type": self.type,
+            "callDuration": self.call_duration,
+            "attachments": self.attachments
+        }
 
 class AttachmentType(str, PythonEnum):
     PHOTO = 'photo'
