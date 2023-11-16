@@ -9,10 +9,10 @@ class App:
 
     def __init__(self):
         self.app = Flask(__name__)
+        self.__register_blueprints()
 
     def __register_blueprints(self):
         [self.app.register_blueprint(bp) for bp in self.blueprints]
 
     def run(self, host="localhost", port=8080):
-        self.__register_blueprints()
         self.app.run(host=host, port=port)
