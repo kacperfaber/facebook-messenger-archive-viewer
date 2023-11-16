@@ -8,7 +8,8 @@ from image.db import Pagination, Db
 class ConversationControllerIntegrationTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        db = Db(Db.create_engine(image_name="testing2", password=None))
+        # TODO: Need to create docker image, which will build image automatically
+        db = Db(Db.create_engine(image_name="facebook_archive", password=None))
         cls.app = App(db)
         cls.app.app.config.update({"TESTING": True})
         cls.client = cls.app.app.test_client()
@@ -18,7 +19,7 @@ class ConversationControllerIntegrationTest(unittest.TestCase):
         self.assertEqual(200, status_code)
 
     # TODO: Finish tests
-    
+
 
 if __name__ == '__main__':
     unittest.main()
