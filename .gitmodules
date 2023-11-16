@@ -1,0 +1,6 @@
+[submodule "api/ui"]
+	path = api/ui
+	url = https://www.github.com/kacperfaber/facebook-messenger-archive-viewer-ui
+[submodule "api/facebook-messenger-archive-viewer-ui"]
+	path = api/facebook-messenger-archive-viewer-ui
+	url = https://www.github.com/kacperfaber/facebook-messenger-archive-viewer-ui
