@@ -1,0 +1,42 @@
+{
+  "title": "John Smith",
+  "is_still_participant": true,
+  "thread_type": "Regular",
+  "thread_path": "archived_threads/johnsmith_37xd",
+  "participants": [
+    {
+      "name": "Kacper Faber"
+    },
+    {
+      "name": "John Smith"
+    }
+  ],
+  "messages": [
+    {
+      "sender_name": "Kacper Faber",
+      "timestamp_ms": 1672574400000,
+      "content": "Hello John",
+      "type": "Generic",
+      "is_unsent": false
+    },
+    {
+      "sender_name": "John Smith",
+      "timestamp_ms": 1672574460000,
+      "content": "Hello Kacper",
+      "type": "Generic",
+      "is_unsent": false
+    },
+    {
+      "sender_name": "Kacper Faber",
+      "timestamp_ms": 1672574520000,
+      "photos": [
+        {
+          "uri": "messages/archived_threads/johnsmith_37xd/photos/invalid_image.jpg",
+          "creation_timestamp": 1672574520000
+        }
+      ],
+      "type": "Generic",
+      "is_unsent": false
+    }
+  ]
+}
